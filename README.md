@@ -1,2 +1,2 @@
 # FYS4150
-Projects for FYS4150
+Computational Physics
