@@ -5,4 +5,10 @@ CONFIG -= qt
 LIBS += -larmadillo -lblas -llapack
 
 SOURCES += \
-        main.cpp
+        jacobi.cpp \
+        main.cpp \
+        test2.cpp
+
+HEADERS += \
+    jacobi.h \
+    test2.h
