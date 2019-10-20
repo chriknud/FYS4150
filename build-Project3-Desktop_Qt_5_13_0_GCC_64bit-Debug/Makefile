@@ -12,11 +12,11 @@ EQ            = =
 
 ####### Compiler, tools and options
 
-CC            = clang
-CXX           = clang++
+CC            = mpicc
+CXX           = mpicxx
 DEFINES       = -DQT_QML_DEBUG
-CFLAGS        = -pipe -g -Wall -W -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -fPIC $(DEFINES)
+CFLAGS        = -pipe -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent/include -I/usr/lib/x86_64-linux-gnu/openmpi/include -pthread -g -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/opal/mca/event/libevent2022/libevent/include -I/usr/lib/x86_64-linux-gnu/openmpi/include -pthread -DMPICH_IGNORE_CXX_SEEK -g -std=gnu++11 -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I../Project3 -I. -I/home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-clang
 QMAKE         = /home/chris/Qt/5.13.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -39,7 +39,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = Project31.0.0
 DISTDIR = /home/chris/Dropbox/Dokumenter/Skole/UiO/Host2019/FYS4150/FYS4150/build-Project3-Desktop_Qt_5_13_0_GCC_64bit-Debug/.tmp/Project31.0.0
 LINK          = clang++
-LFLAGS        = -ccc-gcc-name g++
+LFLAGS        = -ccc-gcc-name g++ -pthread -L/usr//lib -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi_cxx -lmpi
 LIBS          = $(SUBLIBS)    
 AR            = ar cqs
 RANLIB        = 
@@ -52,8 +52,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Project3/main.cpp 
-OBJECTS       = main.o
+SOURCES       = ../Project3/gauss.cpp \
+		../Project3/main.cpp 
+OBJECTS       = gauss.o \
+		main.o
 DIST          = /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/common/unix.conf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/common/linux.conf \
@@ -207,6 +209,7 @@ DIST          = /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-clang/qmake.conf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_post.prf \
+		../Project3/.qmake.stash \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -220,7 +223,8 @@ DIST          = /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/exceptions.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/yacc.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/lex.prf \
-		../Project3/Project3.pro  ../Project3/main.cpp
+		../Project3/Project3.pro gauss.h ../Project3/gauss.cpp \
+		../Project3/main.cpp
 QMAKE_TARGET  = Project3
 DESTDIR       = 
 TARGET        = Project3
@@ -385,6 +389,7 @@ Makefile: ../Project3/Project3.pro /home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-cl
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/qt_config.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-clang/qmake.conf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/toolchain.prf \
 		/home/chris/Qt/5.13.0/gcc_64/mkspecs/features/default_pre.prf \
@@ -553,6 +558,7 @@ Makefile: ../Project3/Project3.pro /home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-cl
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/qt_config.prf:
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/linux-clang/qmake.conf:
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/toolchain.prf:
 /home/chris/Qt/5.13.0/gcc_64/mkspecs/features/default_pre.prf:
@@ -610,7 +616,10 @@ compiler_clean:
 
 ####### Compile
 
-main.o: ../Project3/main.cpp 
+gauss.o: ../Project3/gauss.cpp ../Project3/gauss.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gauss.o ../Project3/gauss.cpp
+
+main.o: ../Project3/main.cpp ../Project3/gauss.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Project3/main.cpp
 
 ####### Install

@@ -17,18 +17,18 @@ using namespace arma;
 int main()
 {
     jacobi jacobi_method;
-    int n = 200;  //for good lambda it shoud be 400 or n=100
+    int n = 200;
     mat A(n,n,fill::zeros);
     mat R(n,n,fill::eye);
     double tolerance = 1.0E-15;
     int iterations = 0;
-    int maxiter = 1000000; //need 350000 for good lambda
+    int maxiter = 1000000;
     double maxnondiag = tolerance*2;
     double rho0 = 0;
     //task b
     //double rho_max = 1;
     //task c
-    double rho_max = 4.5;  //need 5.2 for good lambda or 8
+    double rho_max = 4.5;
     double h = (rho_max-rho0)/n;
     double a = -1/(h*h);
     double d = 2/(h*h);
