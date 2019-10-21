@@ -45,7 +45,7 @@ int main()
 
      }
 //Loop over Monte Carlo
-     for (int i=5; i<=8;i++){
+     for (int i=5; i<=9;i++){
         double N = pow(10,i);
         int numb = N;
         cout << "N= " << N << endl;
@@ -56,7 +56,7 @@ int main()
         cout << "Time used with Monte Carlo: " << duration_monte_carlo*1e-6 << " sec." << endl;
      }
 //Loop over Monte Carlo improved
-     for (int i=5; i<=8;i++){
+     for (int i=5; i<=9;i++){
         double N = pow(10,i);
         int numb = N;
         cout << "N= " << N << endl;
@@ -100,7 +100,7 @@ int main()
      cout << "Time used with improved Monte Carlo: " << duration_monte_carlo_improved*1e-6 << " sec." << endl;
 
 //Monte Carlo improved with MPI
-     gauss.monte_carlo_improved_MPI(n, a, b);
+//     gauss.monte_carlo_improved_MPI(n, a, b);
 
 }
 
@@ -123,10 +123,12 @@ void loopyloop_cart(int N, double a, double b){
       *gauss.func_cartesian(x[i],x[j],x[k],x[l],x[m],x[n]);
            }}}}}
        }
+
         cout << "Gauss Legendre Quadrature"<< endl;
         cout << "Number of integration points " << N << endl;
         cout << "Exact value " << exact << endl;
         cout << "Numerical value " << int_gauss << endl;
+        cout << "Rel. error = " << (abs(exact-int_gauss))/exact << endl;
 
 }
 
@@ -155,9 +157,11 @@ void loopyloop_polar(int N){
       *gauss.func_polar(r[i+1],theta[j],phi[k],r[l+1],theta[m],phi[n]);
            }}}}}
    }
+
     cout << "Gauss Laguerre Quadrature"<< endl;
     cout << "Number of integration points " << N << endl;
     cout << "Exact value " << exact << endl;
     cout << "Numerical value " << int_gauss << endl;
+    cout << "Rel. error = " << (abs(exact-int_gauss))/exact << endl;
 }
 

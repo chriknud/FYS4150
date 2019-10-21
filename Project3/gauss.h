@@ -27,6 +27,7 @@ public:
     void monte_carlo_improved(int n, double a, double b);
     void monte_carlo_improved_MPI(int n, double a, double b);
     void tester_func(double final_MCint, double exact);
+    //test
 };
 
 #endif // GAUSS_H

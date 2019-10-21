@@ -155,11 +155,11 @@ void gauss::monte_carlo(int n, double a, double b){
      MCintsqr2 = MCintsqr2/((double) n );
      double variance=MCintsqr2-MCint*MCint;
      MCint = MCint*pow(b-a, 6);
-     variance = variance*pow(b-a, 6);
      double exact ;
      double pi=3.141592653589793238462643383279502884197;
      exact = 5*pi*pi/(16*16);
      cout << " Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
+     cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
     }
 
 void gauss::monte_carlo_improved(int n, double a, double b){
@@ -184,11 +184,11 @@ void gauss::monte_carlo_improved(int n, double a, double b){
     MCintsqr2 = MCintsqr2/((double) n );
     double variance=MCintsqr2-MCint*MCint;
     MCint = MCint*pow(pi, 2)*pow(2*pi, 2);
-    variance = variance*pow(pi, 2)*pow(2*pi, 2);
     double exact ;
     exact = 5*pi*pi/(16*16);
-    tester_func(MCint, exact);
+    //tester_func(MCint, exact);
     cout << " Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
+    cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
 }
 
 void gauss::monte_carlo_improved_MPI(int n, double a, double b){
@@ -224,7 +224,6 @@ void gauss::monte_carlo_improved_MPI(int n, double a, double b){
     MCint = MCint/((double) n );
     MCintsqr2 = MCintsqr2/((double) n );
     double variance=MCintsqr2-MCint*MCint;
-    variance = variance*pow(pi, 2)*pow(2*pi, 2);
     MCint = MCint*pow(pi, 2)*pow(2*pi, 2);
     MPI_Reduce(&MCint, &total_sum,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
     time_end = MPI_Wtime();
@@ -232,6 +231,7 @@ void gauss::monte_carlo_improved_MPI(int n, double a, double b){
     if (my_rank==0){
         cout << "Variance= " << variance << " Integral = " << total_sum << " Exact= " << exact << endl;
         cout << "Time: " << time_end-time_start<< endl;
+        cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
     }
     MPI_Finalize();
 }
