@@ -1,0 +1,18 @@
+Gauss Legendre Quadrature
+Number of integration points 25
+Exact value 0.192766
+Numerical value 0.195817
+Rel. error = 0.0158267
+Time used with Gauss-Legendre quadrature: 58.5363 sec.
+Gauss Laguerre Quadrature
+Number of integration points 15
+Exact value 0.192766
+Numerical value 0.193285
+Rel. error = 0.00269565
+Time used with Gauss-Laguerre quadrature: 9.21296 sec.
+ Variance= 2.10128e-07 Integral = 0.270953 Exact= 0.192766
+Rel. error = 0.405607
+Time used with Monte Carlo: 0.042517 sec.
+ Variance= 1.05531e-06 Integral = 0.192776 Exact= 0.192766
+Rel. error = 5.36869e-05
+Time used with improved Monte Carlo: 0.134925 sec.
