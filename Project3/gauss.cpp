@@ -158,11 +158,13 @@ void gauss::monte_carlo(int n, double a, double b){
      double exact ;
      double pi=3.141592653589793238462643383279502884197;
      exact = 5*pi*pi/(16*16);
-     cout << " Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
+     cout << "Monte Carlo"<< endl;
+     cout << "Number of integration points " << n << endl;
+     cout << "Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
      cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
     }
 
-void gauss::monte_carlo_improved(int n, double a, double b){
+void gauss::monte_carlo_improved(int n){
     double r1, theta1, phi1, r2, theta2, phi2;
     double MCint, MCintsqr2, fx, Variance;
     double pi=3.141592653589793238462643383279502884197;
@@ -187,22 +189,21 @@ void gauss::monte_carlo_improved(int n, double a, double b){
     double exact ;
     exact = 5*pi*pi/(16*16);
     //tester_func(MCint, exact);
-    cout << " Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
+    cout << "Monte Carlo Improved"<< endl;
+    cout << "Number of integration points " << n << endl;
+    cout << "Variance= " << variance << " Integral = " << MCint << " Exact= " << exact << endl;
     cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
 }
 
-void gauss::monte_carlo_improved_MPI(int n, double a, double b){
+void gauss::monte_carlo_improved_MPI(int n){
     int local_n, numprocs, my_rank;
     double time_start, time_end, total_time;
-    double h, local_a, local_b, total_sum;
+    double total_sum;
     MPI_Init (NULL,NULL);
     MPI_Comm_size (MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank (MPI_COMM_WORLD, &my_rank);
     time_start = MPI_Wtime();
-    h = (b-a)/n;
     local_n = n/numprocs;
-    local_a = a + my_rank*local_n*h;
-    local_b = local_a + local_n*h;
     double r1, theta1, phi1, r2, theta2, phi2;
     double MCint, MCintsqr2, fx, Variance;
     double pi=3.141592653589793238462643383279502884197;
@@ -229,7 +230,9 @@ void gauss::monte_carlo_improved_MPI(int n, double a, double b){
     time_end = MPI_Wtime();
     cout << "hei" << my_rank << endl;
     if (my_rank==0){
-        cout << "Variance= " << variance << " Integral = " << total_sum << " Exact= " << exact << endl;
+        cout << "Monte Carlo Improved MPI"<< endl;
+        cout << "Number of integration points " << n << endl;
+        cout << "Variance = " << variance << " Integral = " << total_sum << " Exact= " << exact << endl;
         cout << "Time: " << time_end-time_start<< endl;
         cout << "Rel. error = " << (abs(exact-MCint))/exact << endl;
     }

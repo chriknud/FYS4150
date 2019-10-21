@@ -22,7 +22,7 @@ int main()
      n = 100000;
      a = -3;
      b = 3;
-/*
+
 //Loop over Legendre
      for (int i=1; i<=7;i++){
         int N = i *5;
@@ -63,15 +63,16 @@ int main()
         int numb = N;
         cout << "N= " << N << endl;
         auto t1d = std::chrono::high_resolution_clock::now();
-        gauss.monte_carlo_improved(numb, a, b);
+        gauss.monte_carlo_improved(numb);
         auto t2d = std::chrono::high_resolution_clock::now();
         auto duration_monte_carlo_improved = std::chrono::duration_cast<std::chrono::microseconds>( t2d - t1d ).count();
         cout << "Time used with improved Monte Carlo: " << duration_monte_carlo_improved*1e-6 << " sec." << endl;
      }
-*/
 
      int N1 = 25;
      int N2 = 15;
+     int n1 = 10000000;
+     int n2 = 100000;
 
 //Gauss Legendre quadrature
      auto t1a = std::chrono::high_resolution_clock::now();
@@ -89,20 +90,20 @@ int main()
 
 //Monte Carlo
      auto t1c = std::chrono::high_resolution_clock::now();
-     gauss.monte_carlo(n, a, b);
+     gauss.monte_carlo(n1, a, b);
      auto t2c = std::chrono::high_resolution_clock::now();
      auto duration_monte_carlo = std::chrono::duration_cast<std::chrono::microseconds>( t2c - t1c ).count();
      cout << "Time used with Monte Carlo: " << duration_monte_carlo*1e-6 << " sec." << endl;
 
 //Monte Carlo improved
      auto t1d = std::chrono::high_resolution_clock::now();
-     gauss.monte_carlo_improved(n, a, b);
+     gauss.monte_carlo_improved(n2);
      auto t2d = std::chrono::high_resolution_clock::now();
      auto duration_monte_carlo_improved = std::chrono::duration_cast<std::chrono::microseconds>( t2d - t1d ).count();
      cout << "Time used with improved Monte Carlo: " << duration_monte_carlo_improved*1e-6 << " sec." << endl;
 
 //Monte Carlo improved with MPI
-//     gauss.monte_carlo_improved_MPI(n, a, b);
+     gauss.monte_carlo_improved_MPI(n2);
 
 }
 

@@ -24,8 +24,8 @@ public:
     double gammln( double xx);
     double func_polar(double r1, double theta1, double phi1, double r2, double theta2, double phi2);
     void monte_carlo(int n, double a, double b);
-    void monte_carlo_improved(int n, double a, double b);
-    void monte_carlo_improved_MPI(int n, double a, double b);
+    void monte_carlo_improved(int n);
+    void monte_carlo_improved_MPI(int n);
     void tester_func(double final_MCint, double exact);
 
 };
