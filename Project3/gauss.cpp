@@ -182,8 +182,8 @@ void gauss::monte_carlo_improved(int n, double a, double b){
     }
     MCint = MCint/((double) n );
     MCintsqr2 = MCintsqr2/((double) n );
-    double variance=(MCintsqr2-MCint*MCint)*pow(4*pi, 4);
-    MCint = MCint*pow(4*pi, 4);
+    double variance=(MCintsqr2-MCint*MCint)*4*pow(pi, 4);
+    MCint = MCint*4*pow(pi, 4);
     double exact ;
     exact = 5*pi*pi/(16*16);
     //tester_func(MCint, exact);
@@ -223,8 +223,8 @@ void gauss::monte_carlo_improved_MPI(int n, double a, double b){
     }
     MCint = MCint/((double) n );
     MCintsqr2 = MCintsqr2/((double) n );
-    double variance=(MCintsqr2-MCint*MCint)*pow(4*pi, 4);
-    MCint = MCint*pow(4*pi, 4);
+    double variance=(MCintsqr2-MCint*MCint)*4*pow(pi, 4);
+    MCint = MCint*4*pow(pi, 4);
     MPI_Reduce(&MCint, &total_sum,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
     time_end = MPI_Wtime();
     cout << "hei" << my_rank << endl;

@@ -44,6 +44,7 @@ int main()
         cout << "Time used with Gauss-Laguerre quadrature: " << duration_laguerre*1e-6 << " sec." << endl;
 
      }
+
 //Loop over Monte Carlo
      for (int i=5; i<=9;i++){
         double N = pow(10,i);
@@ -55,6 +56,7 @@ int main()
         auto duration_monte_carlo = std::chrono::duration_cast<std::chrono::microseconds>( t2c - t1c ).count();
         cout << "Time used with Monte Carlo: " << duration_monte_carlo*1e-6 << " sec." << endl;
      }
+
 //Loop over Monte Carlo improved
      for (int i=5; i<=9;i++){
         double N = pow(10,i);
@@ -66,7 +68,7 @@ int main()
         auto duration_monte_carlo_improved = std::chrono::duration_cast<std::chrono::microseconds>( t2d - t1d ).count();
         cout << "Time used with improved Monte Carlo: " << duration_monte_carlo_improved*1e-6 << " sec." << endl;
      }
-     */
+*/
 
      int N1 = 25;
      int N2 = 15;
